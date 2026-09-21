@@ -235,24 +235,5 @@ curl -s -b cookies.txt $BASE/api/cart
 
 ---
 
-## ☁️ Deployment on Render
-
-### Render Configuration Summary
-- **Runtime**: Node
-- **Build Command**: `npm install`
-- **Start Command**: `npm start`
-- **Health Check Path**: `/health`
-- **Instance Type**: Free
-
-### Environment Variables
-Configure the following in the Render Dashboard (**Environment** tab):
-- `NODE_ENV` = `production`
-- `SESSION_SECRET` = `<generate with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))">`
-
-*(Note: Do not set `PORT` — Render sets this automatically, and the application binds to `process.env.PORT` on `0.0.0.0`)*
-
-### ⚠️ Free Tier Architectural Notes & Limitations
-1. **Ephemeral File System**: On Render's free tier, the local container filesystem is ephemeral. Any data written at runtime (new registrations, cart updates, inventory decrements from checkouts) will reset to the committed seed state whenever the service restarts, redeploys, or wakes from idle spin-down. For persistent production storage, attach a persistent disk or a cloud database (MongoDB/PostgreSQL).
-2. **In-Memory Session Store (`MemoryStore`)**: Sessions are held in process memory, meaning user sessions will reset upon container restart.
-3. **Cold Starts**: Inactive free-tier services spin down after ~15 minutes. The initial request after a spin-down may take 30–60 seconds to respond.
-4. **HTTPS Cookies**: In production (`NODE_ENV=production`), session cookies have the `secure: true` flag enabled, requiring requests to be made over HTTPS. `app.set('trust proxy', 1)` is enabled in `server.js` to ensure cookies function behind Render's reverse proxy.
+DEPLOYMENT LINK: 
+https://assignment-7-ecommerce-product-cart-api-crkm.onrender.com/
